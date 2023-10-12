@@ -22,6 +22,7 @@ from collections import deque
 def order_graph_by_level(adj_matrix):
     num_nodes = len(adj_matrix)
     indegrees = [0] * num_nodes  # In-degree of each node
+    print("indegree" + str(indegrees))
     levels = []  # List to store nodes at each level
     graph = {}  # Adjacency list representation
 
