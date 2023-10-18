@@ -32,11 +32,11 @@ def PeriodicGraphMatricielle(matrix):
             if graph_matrix[i][j] != 0 :
                 outgoing[i].append(j)
 
-                print("on " + str(i) + "node, there is an outgoing to " + str(j) + "node")
+                # print("on " + str(i) + "node, there is an outgoing to " + str(j) + "node")
                 startVertex = i
 
-    print("=========================================\n")
-    print(outgoing)
+    # print("=========================================\n")
+    # print(outgoing)
     
     startVertex = 3
     step.append(outgoing[startVertex])
@@ -56,11 +56,11 @@ def PeriodicGraphMatricielle(matrix):
     #         notfoundPeriod = False
         # this is comment code     
     laststep = -1    
-    while notfoundPeriod and c < 5: # running in step
+    while notfoundPeriod: # running in step
         onestep = []
    
-        print("step -1 = " + str(step[-1]))
-        print("laststep= " + str(step[laststep][0]))
+        # print("step -1 = " + str(step[-1]))
+        # print("laststep= " + str(step[laststep][0]))
         
         for j in range(len(step[laststep])):
             # for i in range(len(step[j])):
@@ -70,9 +70,9 @@ def PeriodicGraphMatricielle(matrix):
             # print(str(j) + " go to " +  str(outgoing[j]))
             onestep.extend(outgoing[step[laststep][j]])
         onestep = remove_duplicates(onestep)
-        print(onestep)
+        # print(onestep)
         step.append(onestep)
-        print(step)
+        # print(step)
 
         c =c + 1 
         # comment end here
@@ -95,18 +95,44 @@ def PeriodicGraphMatricielle(matrix):
         for i in range(len(step)):
             if(has_duplicates(step)):
                 notfoundPeriod = False
-                print(step)
+                # print(step)
             
             
 
             
-    print("\n\nNext step: " + str(step))    
+    # print("\n\nNext step: " + str(step))    
+    for i in range(len(step)):
+        if step[i] == step[-1]:
+            tmp = step[i:]
+            break
+        
+    step = tmp[:-1]
     period = len(step) -1
 
     return step, period
     # print(step)
     # print(str(startVertex) + ':' + str(step))
 
+def has_duplicate(list_of_lists):
+    seen_elements = set()
+
+    for sublist in list_of_lists:
+        for element in sublist:
+            if element in seen_elements:
+                return True
+            seen_elements.add(element)
+
+    return False
+
+def checkIfPeriodic(matrix):
+    cluster, period = PeriodicGraphMatricielle(matrix)
+    new = [item for sublist in cluster for item in sublist]
+    new = remove_duplicates(new)
+    
+    # print(len(new))
+    if len(new) == len(matrix) and not has_duplicate(cluster):
+        return True
+    return False
 
 graph_matrix = [
     # [0,0,0,0,0,0,0,1,0,0,0],
@@ -128,7 +154,7 @@ graph_matrix = [
     # [1,0,0,0,0,0]
     [0,1,0,1,0,0,0,0],
     [0,0,1,0,0,0,0,0],
-    [0,0,0,0,1,1,0,0],
+    [0,0,0,0,1,1,0,1],
     [0,0,1,0,0,0,0,0],
     [0,0,0,0,0,0,0,1],
     [0,0,0,0,0,0,1,0],
@@ -138,7 +164,10 @@ graph_matrix = [
 sz = len(graph_matrix)
 
 cluster, period = PeriodicGraphMatricielle(graph_matrix)
-print("Ordered levels of vertices:")
-print(str(cluster) + " = " + str(period))
+
+print("\n\nIs it periodic? : " + str(checkIfPeriodic(graph_matrix)))
+if checkIfPeriodic(graph_matrix):
+    print("\n\n Here is the periodic:")
+    print(str(cluster) + " = " + str(period))
 # for level, vertices in enumerate(ordered_levels):
     # print(ordered_levels)
