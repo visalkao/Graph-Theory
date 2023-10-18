@@ -1,3 +1,13 @@
+def has_duplicates(lst):
+    seen = set()
+    for item in lst:
+        # Convert the list to a tuple, which is hashable
+        item_tuple = tuple(item)
+        if item_tuple in seen:
+            return True
+        seen.add(item_tuple)
+    return False
+
 def PeriodicGraphMatricielle(matrix):
     num_nodes = len(matrix)
     # for i in range(num_nodes):
@@ -19,21 +29,51 @@ def PeriodicGraphMatricielle(matrix):
     
     startVertex = 3
     step.append(outgoing[startVertex])
-    i = 0
+    currentstep = 0
     c = 0
-    while notfoundPeriod :
-        print("outgoing[startVertex] = " + str(outgoing[startVertex]))
-        for j in range(len(step[i])):
-            print("step[i] = " + str(len(step[i])))
-            print("j = " + str(j) + "outgoing bos j =" + str(outgoing[j]))
-            step.append(outgoing[j])
+    # while notfoundPeriod :
+    #     print("outgoing[startVertex] = " + str(outgoing[startVertex]))
+    #     for j in range(len(step[i])):
+    #         print("step[i] = " + str(len(step[i])))
+    #         print("j = " + str(j) + "outgoing bos j =" + str(outgoing[j]))
+    #         step.append(outgoing[j])
         
-        i = i + 1
+    #     i = i + 1
 
-        c = c + 1
-        if(c == 10):
-            notfoundPeriod = False
+    #     c = c + 1
+    #     if(c == 10):
+    #         notfoundPeriod = False
         
+    while notfoundPeriod and c < 5: # running in step
+        onestep = []
+        # print("step[currentstep]" + str(step[currentstep]))
+        # print(step)
+        # print(step[1])
+        # for i in range(len(step)):
+        print("step -1 = " + str(step[-1]))
+        
+        for j in range(len(step[-1])):
+            print("outgoing[step[--]] = "+ str(step[j]) + " - " + str(outgoing[j]))
+            
+            # print("outgoing[step[i]] = " + str(outgoing[step[j]]))
+            # onestep.append(outgoing[step[currentstep[j]]])
+
+            # print("step j = " + str(step[j]))
+            print(str(j) + " go to " +  str(outgoing[j]))
+            onestep.append(outgoing[j])
+
+        # step.append(onestep)
+        # print(step)
+        c =c + 1
+
+
+        for i in range(len(step)):
+            if(has_duplicates(step)):
+                notfoundPeriod = False
+                print(step)
+            
+            
+
             
     print("\n\nNext step: " + str(step))    
     # print(step)
