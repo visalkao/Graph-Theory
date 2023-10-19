@@ -75,22 +75,7 @@ def PeriodicGraphMatricielle(matrix):
         # print(step)
 
         c =c + 1 
-        # comment end here
-    # seen = set(tuple(move) for move in outgoing)  # Keep track of seen moves to check for duplicates
-    # c = 0
-    # while notfoundPeriod and c < 5:  # running in step
-    #     onestep = []
 
-    #     print("step -1 =", step[-1])
-
-    #     for j in range(len(step[-1])):
-    #         for i in range(len(step[step[-1][j] - 1])):
-    #             print("outgoing[step[--]] =", step[step[-1][j] - 1][i], "-", outgoing[i])
-
-    #         print(str(j) + " go to " + str(outgoing[j]))
-    #         onestep.append(outgoing[j])
-
-    #     c += 1
 
         for i in range(len(step)):
             if(has_duplicates(step)):
@@ -154,7 +139,7 @@ graph_matrix = [
     # [1,0,0,0,0,0]
     [0,1,0,1,0,0,0,0],
     [0,0,1,0,0,0,0,0],
-    [0,0,0,0,1,1,0,1],
+    [0,0,0,0,1,1,0,0],
     [0,0,1,0,0,0,0,0],
     [0,0,0,0,0,0,0,1],
     [0,0,0,0,0,0,1,0],
