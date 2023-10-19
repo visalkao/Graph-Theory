@@ -137,18 +137,18 @@ graph_matrix = [
     # [1,0,1,0,0,0],
     # [0,0,0,1,0,1],
     # [1,0,0,0,0,0]
-    # [0,1,0,1,0,0,0,0],
-    # [0,0,1,0,0,0,0,0],
-    # [0,0,0,0,1,1,0,0],
-    # [0,0,1,0,0,0,0,0],
-    # [0,0,0,0,0,0,0,1],
-    # [0,0,0,0,0,0,1,0],
-    # [1,0,0,0,0,0,0,0],
-    # [1,0,0,0,0,0,0,0],
-    [0, 1, 0, 1],
- [1, 0, 1, 1],
- [0, 1, 0, 0],
- [1, 1, 0, 0]
+    [0,1,0,1,0,0,0,0],
+    [0,0,1,0,0,0,0,0],
+    [0,0,0,0,1,1,0,0],
+    [0,0,1,0,0,0,0,0],
+    [0,0,0,0,0,0,0,1],
+    [0,0,0,0,0,0,1,0],
+    [1,0,0,0,0,0,0,0],
+    [1,0,0,0,0,0,0,0],
+#     [0, 1, 0, 1],
+#  [1, 0, 1, 1],
+#  [0, 1, 0, 0],
+#  [1, 1, 0, 0]
 
 
 
@@ -159,9 +159,12 @@ sz = len(graph_matrix)
 
 cluster, period = PeriodicGraphMatricielle(graph_matrix)
 
-print("\n\nIs it periodic? : " + str(checkIfPeriodic(graph_matrix)))
+print("\nEst-ce que c'est un graphe périodique? : " + str(checkIfPeriodic(graph_matrix)))
 if checkIfPeriodic(graph_matrix):
-    print("\n\n Here is the periodic:")
-    print(str(cluster) + " = " + str(period))
+    print("\n=> Ici c'est la période de ce graphe:")
+    print(str(cluster) + " = " + str(period) + "\n")
+else:
+    print("\n=> C'est un graphe apériodique")
+
 # for level, vertices in enumerate(ordered_levels):
     # print(ordered_levels)
