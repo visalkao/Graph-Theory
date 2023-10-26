@@ -1,0 +1,70 @@
+# supprimer les boucles
+import numpy as np
+
+def supprimerboucle(G):
+    g=len(G)
+    for i in range(g):
+        if G[i][i]==1:
+            G[i][i]=0
+    return G
+
+def pastransitoire(L,M): 
+    return (np.sum(L)==0 or np.sum(M)==0)
+
+def circuitgraphe(G):
+    g=len(G)
+    for i in range(g):
+        if pastransitoire(G[i,:], G[:,i]):
+            for k in range(g):
+                G[i][k],G[k][i]=0,0
+                
+    return G
+
+
+def pipeline(G):
+    M=supprimerboucle(G)
+    return circuitgraphe(M)
+#Recherhce de tous les circuits possibles
+
+def findCircuits(adjacency_matrix):
+    n = len(adjacency_matrix)
+    circuits = []
+
+    def explore(v, path):
+        if v in path:
+            start = path.index(v)
+            circuit = path[start:]
+            if len(circuit) > 2:  # Ignore self-loops
+                circuits.append(circuit)
+            return
+
+        for u in range(n):
+            if adjacency_matrix[v][u] == 1:
+                explore(u, path + [v])
+
+    for i in range(n):
+        explore(i, [])
+
+    return circuits
+#Algo de Malgrange 
+
+def malgrange(matrice):
+    m=len(matrice)
+    sommet=[i for i in range (m)]
+    CFC=[]
+    
+    def dfs(u, FC):
+        FC.append(u)
+        sommet.remove(u)
+        for v in range(m):
+            if matrice[u][v] == 1 and v in sommet:
+                dfs(v, FC)
+    
+    while sommet:
+        u = sommet[0]
+        FC = []
+        dfs(u, FC)
+        CFC.append(FC)
+    return CFC
+
+
