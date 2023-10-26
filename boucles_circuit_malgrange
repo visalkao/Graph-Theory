@@ -48,24 +48,39 @@ def findCircuits(adjacency_matrix):
     return circuits
 #Algo de Malgrange 
 
+import numpy as np
+
 def malgrange(matrice):
     m = len(matrice)
-    sommet = set(range(m))  # Utilisez un ensemble plutôt qu'une liste pour sommet
     CFC = []
+    G = np.transpose(matrice)  # Transposer la matrice pour inverser les arêtes
 
-    def dfs(u, FC):
-        FC.append(u)
-        sommet.remove(u)
+    def dfs(u, visited, stack):
+        visited[u] = True
         for v in range(m):
-            if matrice[u][v] == 1 and v in sommet:
-                dfs(v, FC)
+            if not visited[v] and G[u][v] == 1:
+                dfs(v, visited, stack)
+        stack.append(u)
 
-    while sommet:
-        u = next(iter(sommet))  # Utilisez next() pour obtenir le prochain élément de sommet
-        FC = []
-        dfs(u, FC)
-        CFC.append(FC)
+    def dfs_reverse(u, visited, component):
+        visited[u] = True
+        component.append(u)
+        for v in range(m):
+            if not visited[v] and matrice[u][v] == 1:
+                dfs_reverse(v, visited, component)
+
+    visited = [False] * m
+    stack = []
+    for u in range(m):
+        if not visited[u]:
+            dfs(u, visited, stack)
+
+    visited = [False] * m
+    while stack:
+        u = stack.pop()
+        if not visited[u]:
+            component = []
+            dfs_reverse(u, visited, component)
+            CFC.append(component)
+
     return CFC
-
-
-
