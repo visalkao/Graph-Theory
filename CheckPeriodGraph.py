@@ -92,7 +92,7 @@ def PeriodicGraphMatricielle(matrix):
             break
         
     step = tmp[:-1]
-    period = len(step) -1
+    period = len(step) 
 
     return step, period
     # print(step)
@@ -106,7 +106,6 @@ def has_duplicate(list_of_lists):
             if element in seen_elements:
                 return True
             seen_elements.add(element)
-
     return False
 
 def checkIfPeriodic(matrix):
@@ -145,11 +144,24 @@ graph_matrix = [
     [0,0,0,0,0,0,1,0],
     [1,0,0,0,0,0,0,0],
     [1,0,0,0,0,0,0,0],
-#     [0, 1, 0, 1],
-#  [1, 0, 1, 1],
-#  [0, 1, 0, 0],
-#  [1, 1, 0, 0]
 
+
+
+    # [0,1,0,0,0,0,0,0,1,0,0,0,0,0,0],
+    # [1,1,1,0,0,0,0,1,0,0,0,0,0,0,0],
+    # [1,0,0,1,0,0,1,0,0,0,0,0,0,0,0],
+    # [0,0,1,0,1,1,0,0,0,0,0,0,0,0,0],
+    # [0,0,1,0,1,0,0,0,0,0,0,0,0,1,1],
+    # [0,0,0,0,1,0,0,0,0,0,0,0,1,0,0],
+    # [0,0,0,0,0,1,0,0,0,0,0,1,0,0,0],
+    # [0,0,0,0,0,0,1,0,0,1,1,0,0,0,0],
+    # [0,0,0,0,0,0,0,1,0,1,0,0,0,0,0],
+    # [0,0,0,0,0,0,0,0,1,1,0,0,0,0,0],
+    # [0,0,0,0,0,0,1,0,0,0,1,0,0,0,0],
+    # [0,0,0,0,0,1,1,0,0,0,0,0,0,0,0],
+    # [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
+    # [0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
+    # [0,0,0,0,0,0,0,0,0,0,0,0,0,1,0]
 
 
 
@@ -165,6 +177,3 @@ if checkIfPeriodic(graph_matrix):
     print(str(cluster) + " = " + str(period) + "\n")
 else:
     print("\n=> C'est un graphe apériodique")
-
-# for level, vertices in enumerate(ordered_levels):
-    # print(ordered_levels)
