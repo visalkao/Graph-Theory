@@ -49,22 +49,23 @@ def findCircuits(adjacency_matrix):
 #Algo de Malgrange 
 
 def malgrange(matrice):
-    m=len(matrice)
-    sommet=[i for i in range (m)]
-    CFC=[]
-    
+    m = len(matrice)
+    sommet = set(range(m))  # Utilisez un ensemble plutôt qu'une liste pour sommet
+    CFC = []
+
     def dfs(u, FC):
         FC.append(u)
         sommet.remove(u)
         for v in range(m):
             if matrice[u][v] == 1 and v in sommet:
                 dfs(v, FC)
-    
+
     while sommet:
-        u = sommet[0]
+        u = next(iter(sommet))  # Utilisez next() pour obtenir le prochain élément de sommet
         FC = []
         dfs(u, FC)
         CFC.append(FC)
     return CFC
+
 
 
