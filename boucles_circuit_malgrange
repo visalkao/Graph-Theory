@@ -84,3 +84,13 @@ def malgrange(matrice):
             CFC.append(component)
 
     return CFC
+
+def estarbre(G) :
+    g = len(G)
+    for j in range(g):
+        S = 0
+        for i in range (g):
+            S += G[i][j]
+        if S > 1 :
+            return False
+    return True
