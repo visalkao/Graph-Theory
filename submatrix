@@ -1,0 +1,3 @@
+def extraire_sous_matrice(matrice, sommets):
+    sous_matrice = [[matrice[i][j] for j in sommets] for i in sommets]
+    return sous_matrice
