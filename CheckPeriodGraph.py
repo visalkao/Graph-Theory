@@ -29,7 +29,7 @@ def PeriodicGraphMatricielle(matrix):
     notfoundPeriod = True
     for i in range(num_nodes):
         for j in range(num_nodes):
-            if graph_matrix[i][j] != 0 :
+            if matrix[i][j] != 0 :
                 outgoing[i].append(j)
 
                 # print("on " + str(i) + "node, there is an outgoing to " + str(j) + "node")

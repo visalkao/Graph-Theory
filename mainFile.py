@@ -1,4 +1,6 @@
 # check periode of graph
+import numpy as np
+
 
 def has_duplicates(lst):
     seen = set()
@@ -31,7 +33,9 @@ def PeriodicGraphMatricielle(matrix):
     notfoundPeriod = True
     for i in range(num_nodes):
         for j in range(num_nodes):
-            if graph_matrix[i][j] != 0 :
+            # print(matrix)
+            # print("ma i = " + str(matrix[i]))
+            if matrix[i][j] != 0 :
                 outgoing[i].append(j)
 
                 # print("on " + str(i) + "node, there is an outgoing to " + str(j) + "node")
@@ -143,7 +147,7 @@ def order_graph_by_level(adj_matrix):
             if adj_matrix[i][j] == 1:
                 graph[i].append(j)
                 indegrees[j] += 1
-    print(graph)
+    # print(graph)
 
     queue = deque()
     for i in range(num_nodes):
@@ -153,7 +157,7 @@ def order_graph_by_level(adj_matrix):
     # print("queue: " + str(queue))
     while queue:
         node, level = queue.popleft()
-        print("node = "+str(node) + " goes6 to level = " + str(level))
+        # print("node = "+str(node) + " goes6 to level = " + str(level))
        
         if level == len(levels):
             levels.append([node])
@@ -178,7 +182,7 @@ def order_graph_by_level(adj_matrix):
 #Roann's code
 ############################################################################
 # supprimer les boucles
-import numpy as np
+
 
 def supprimerboucle(G):
     g=len(G)
@@ -226,8 +230,9 @@ def findCircuits(adjacency_matrix):
 
     return circuits
 #Algo de Malgrange 
+def presencecircuit(matrice):
+    return len(findCircuits(matrice)) >0
 
-import numpy as np
 
 def malgrange(matrice):
     m = len(matrice)
@@ -264,6 +269,11 @@ def malgrange(matrice):
 
     return CFC
 
+def isFC(matrice):
+    if(len(malgrange(matrice))==len(matrice)):
+        return True
+    return False
+
 def estarbre(G) :
     g = len(G)
     for j in range(g):
@@ -274,10 +284,26 @@ def estarbre(G) :
             return False
     return True
 
+def extraire_sous_matrice(matrice, sommets):
+    sous_matrice = [[matrice[i][j] for j in sommets] for i in sommets]
+    return sous_matrice
 
+def EtudeCFC(matrice, FC):
+    for i in range(len(FC)):
+        if(len(FC[i])>0):
+            # print(FC[i])
+            submatrice = extraire_sous_matrice(matrice, FC[i])
+            # print(submatrice)
+            cluster, period = PeriodicGraphMatricielle(submatrice)
 
-
-
+            print("\t\tLe CFC est: " + str(FC[i]) +"a la période = " +  str(period))
+         
+            # print("\t\tcluster = " + str(cluster))
+            
+            print("\n")
+        else:
+            print("\t\tLe CFC est: ")
+            print(FC[i])
 
 ######################################################################
 
@@ -285,8 +311,94 @@ def estarbre(G) :
 
 
 # Input graph 
-graph_matrix = [
+matrice = [
+    [0,0,0,0,1,0,0,1,0,0,0,1],
+                  [0,0,1,1,0,0,1,0,0,0,0,0],
+                 [0,0,0,0,0,1,0,0,0,0,0,0],
+                 [0,1,0,1,0,0,0,0,0,0,0,0],
+                 [0,0,0,0,0,0,0,1,0,0,0,0],
+                 [0,0,1,0,0,0,0,0,0,0,1,0],
+                 [1,0,0,0,0,0,0,0,1,0,0,0],
+                 [0,0,0,0,0,0,0,0,0,1,0,0],
+                 [0,1,0,0,0,0,1,0,0,0,0,0],
+                 [0,0,0,0,0,0,0,1,0,0,0,1],
+                 [0,0,0,0,0,0,0,0,0,0,1,0],
+                 [1,0,0,0,0,0,0,0,0,0,0,0]
+    
+    
+    # to test non circuit + non arbo
+    # [0,0,0,1,0,0,0,0,0],
+    # [0,0,0,0,1,1,0,0,0],
+    # [0,0,0,0,0,1,0,0,0],
+    # [0,1,0,0,1,0,0,0,0],
+    # [0,0,0,0,0,0,1,0,0],
+    # [0,0,0,0,0,0,1,1,0],
+    # [0,0,0,0,0,0,0,0,1],
+    # [0,0,0,0,0,0,0,0,0],
+    # [0,0,0,0,0,0,0,0,0]
+
+
+
+
+    #graph FC + periodic
+    # [0,0,0,0,1,0],
+    # [0,0,0,0,0,1],
+    # [0,1,0,0,0,0],
+    # [1,0,1,0,0,0],
+    # [0,0,0,1,0,1],
+    # [1,0,0,0,0,0]
+
+
 
 ]
 
 
+
+matriceinNumpy=np.array(matrice)
+# print(isFC(matriceinNumpy))
+# print(malgrange(matriceinNumpy))
+
+# # print(graph_matrix)
+# sz = len(graph_matrix)
+
+# ordered_levels = order_graph_by_level(graph_matrix)
+# print("Il y a " + str(len(ordered_levels)) + " niveaux : ")
+# print(ordered_levels)
+
+
+
+print("========================================================================\n")
+print("\t\tGraph entrée\t:")
+for i in range(len(matrice)):
+    print("\t"+str(matrice[i]))
+print("\n\n\t\tPrésence d'un circuit?\n")
+#Circuit
+if(presencecircuit(matriceinNumpy)):
+    print("\t\tOui\n")
+    print("\tCe sont les circuits dans ce graph: ")
+    for i in range(len(findCircuits(matriceinNumpy))):
+        print("\t\t"+str(findCircuits(matriceinNumpy)[i]))
+    
+    print("\n\n\t\tC'est un graph Fortement Connexe? ")
+    #FC
+    if(isFC(matriceinNumpy)):
+        print("\t\tOui\n")
+        print(malgrange(matriceinNumpy))
+        print("C'est un graph périodique?\n")
+        if(checkIfPeriodic(matrice)):
+            print("\t\tOui")
+            PeriodicGraphMatricielle(matrice)
+        else:
+            print("Non c'est le graph apériodique")
+    else:
+        print("\t\tNon")
+        # print(malgrange(matriceinNumpy))
+        EtudeCFC(matriceinNumpy, malgrange(matriceinNumpy))
+        # print("m "+ str(malgrange(matriceinNumpy)))
+else:
+    print("\t\tNon")
+    print("\t\tOrdonne le graph: \n")
+    ordered_levels = order_graph_by_level(matrice)
+    print("\t\tIl y a " + str(len(ordered_levels)) + " niveaux : ")
+    print("\t\t"+str(order_graph_by_level(matrice)))
+    print("\t\tEst-ce que c'est un graphe arborescence?   \t" + str(estarbre(matriceinNumpy)))
