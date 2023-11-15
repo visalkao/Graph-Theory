@@ -270,7 +270,8 @@ def malgrange(matrice):
     return CFC
 
 def isFC(matrice):
-    if(len(malgrange(matrice))==len(matrice)):
+    # print(len(malgrange(matrice)))
+    if(len(malgrange(matrice))==1):
         return True
     return False
 
@@ -352,19 +353,19 @@ matrice = [
 
 
     #graph FC + periodic
-    # [0,0,0,0,1,0],
-    # [0,0,0,0,0,1],
-    # [0,1,0,0,0,0],
-    # [1,0,1,0,0,0],
-    # [0,0,0,1,0,1],
-    # [1,0,0,0,0,0]
+    [0,0,0,0,1,0],
+    [0,0,0,0,0,1],
+    [0,1,0,0,0,0],
+    [1,0,1,0,0,0],
+    [0,0,0,1,0,1],
+    [1,0,0,0,0,0]
 
     #to test arborescence
-    [0, 1, 1, 0, 0],
-[0, 0, 0, 1, 1],
-[0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0]
+#     [0, 1, 1, 0, 0],
+# [0, 0, 0, 1, 1],
+# [0, 0, 0, 0, 0],
+# [0, 0, 0, 0, 0],
+# [0, 0, 0, 0, 0]
 
 
 ]
@@ -400,11 +401,13 @@ if(presencecircuit(matriceinNumpy)):
     #FC
     if(isFC(matriceinNumpy)):
         print("\t\tOui\n")
-        print(malgrange(matriceinNumpy))
-        print("C'est un graph périodique?\n")
+        # print("\t\t" + str(malgrange(matriceinNumpy)))
+        print("\t\tC'est un graph périodique?\n")
         if(checkIfPeriodic(matrice)):
             print("\t\tOui")
-            PeriodicGraphMatricielle(matrice)
+            cluster, period = PeriodicGraphMatricielle(matrice)
+            print("\n\t\t=> Ici c'est la période de ce graphe:")
+            print("\n\t\t"+str(cluster) + " = " + str(period) + "\n")
         else:
             print("Non c'est le graph apériodique")
     else:
