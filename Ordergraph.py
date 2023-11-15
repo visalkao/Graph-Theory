@@ -35,6 +35,8 @@ def order_graph_by_level(adj_matrix):
                 graph[i].append(j)
                 indegrees[j] += 1
     print(graph)
+    # print("indegree" + str(indegrees))
+
 
     queue = deque()
     for i in range(num_nodes):
@@ -44,7 +46,7 @@ def order_graph_by_level(adj_matrix):
     # print("queue: " + str(queue))
     while queue:
         node, level = queue.popleft()
-        print("node = "+str(node) + " goes6 to level = " + str(level))
+        # print("node = "+str(node) + " goes6 to level = " + str(level))
        
         if level == len(levels):
             levels.append([node])
@@ -55,6 +57,7 @@ def order_graph_by_level(adj_matrix):
             indegrees[neighbor] -= 1
             if indegrees[neighbor] == 0:
                 queue.append((neighbor, level + 1))
+        # print(levels)
   
     return levels
 
@@ -96,7 +99,7 @@ graph_matrix = [
     [0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0]
 ]
-print(graph_matrix)
+# print(graph_matrix)
 sz = len(graph_matrix)
 
 ordered_levels = order_graph_by_level(graph_matrix)

@@ -42,19 +42,7 @@ def PeriodicGraphMatricielle(matrix):
     step.append(outgoing[startVertex])
     currentstep = 0
     c = 0
-    # while notfoundPeriod :
-    #     print("outgoing[startVertex] = " + str(outgoing[startVertex]))
-    #     for j in range(len(step[i])):
-    #         print("step[i] = " + str(len(step[i])))
-    #         print("j = " + str(j) + "outgoing bos j =" + str(outgoing[j]))
-    #         step.append(outgoing[j])
-        
-    #     i = i + 1
-
-    #     c = c + 1
-    #     if(c == 10):
-    #         notfoundPeriod = False
-        # this is comment code     
+  
     laststep = -1    
     while notfoundPeriod: # running in step
         onestep = []
@@ -69,6 +57,8 @@ def PeriodicGraphMatricielle(matrix):
 
             # print(str(j) + " go to " +  str(outgoing[j]))
             onestep.extend(outgoing[step[laststep][j]])
+            
+        # print(onestep)
         onestep = remove_duplicates(onestep)
         # print(onestep)
         step.append(onestep)
@@ -143,7 +133,19 @@ graph_matrix = [
     [0,0,0,0,0,0,0,1],
     [0,0,0,0,0,0,1,0],
     [1,0,0,0,0,0,0,0],
-    [1,0,0,0,0,0,0,0],
+    [1,0,0,0,0,0,0,0]
+    	        # [0,0,0,0,1,0,0,1,0,0,0,1],
+                # [0,0,1,1,0,0,1,0,0,0,0,0],
+                # [0,0,0,0,0,1,0,0,0,0,0,0],
+                #  [0,1,0,1,0,0,0,0,0,0,0,0],
+                #  [0,0,0,0,0,0,0,1,0,0,0,0],
+                #  [0,0,1,0,0,0,0,0,0,0,1,0],
+                #  [1,0,0,0,0,0,0,0,1,0,0,0],
+                #  [0,0,0,0,0,0,0,1,0,1,0,0],
+                #  [0,1,0,0,0,0,1,0,0,0,0,0],
+                #  [0,0,0,0,0,0,0,1,0,0,0,1],
+                #  [0,0,0,0,0,0,0,0,0,0,1,0],
+                #  [1,0,0,0,0,0,0,0,0,0,0,0]
 
 
 
