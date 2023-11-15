@@ -289,22 +289,32 @@ def extraire_sous_matrice(matrice, sommets):
     return sous_matrice
 
 def EtudeCFC(matrice, FC):
+    checkboucle=[]
+    print("\n\n")
+    for i in range(len(matrice)):
+        if matrice[i][i] == 1:
+            checkboucle.append(i)
+    # print(checkboucle)
     for i in range(len(FC)):
-        if(len(FC[i])>0):
+        afterRemoveboucle = [element for element in FC[i] if element not in checkboucle]
+        if(len(afterRemoveboucle)>0):
             # print(FC[i])
-            submatrice = extraire_sous_matrice(matrice, FC[i])
+            
+            # print("after"+ str(FC[i]))
+            submatrice = extraire_sous_matrice(matrice, afterRemoveboucle)
+            # print(submatrice)
             # print(submatrice)
             cluster, period = PeriodicGraphMatricielle(submatrice)
 
-            print("\t\tLe CFC est: " + str(FC[i]) +"a la période = " +  str(period))
+            print("\t\tLe CFC est: " + str(afterRemoveboucle) +" a la période = " +  str(period))
          
             # print("\t\tcluster = " + str(cluster))
             
             print("\n")
-        else:
-            print("\t\tLe CFC est: ")
-            print(FC[i])
+        
 
+    for i in range(len(checkboucle)):
+        print("\t\tLe CFC est: [" + str(checkboucle[i]) +"] a la période = 1 parce qu'il a un boucle" )
 ######################################################################
 
 
@@ -312,18 +322,19 @@ def EtudeCFC(matrice, FC):
 
 # Input graph 
 matrice = [
-    [0,0,0,0,1,0,0,1,0,0,0,1],
-                  [0,0,1,1,0,0,1,0,0,0,0,0],
-                 [0,0,0,0,0,1,0,0,0,0,0,0],
-                 [0,1,0,1,0,0,0,0,0,0,0,0],
-                 [0,0,0,0,0,0,0,1,0,0,0,0],
-                 [0,0,1,0,0,0,0,0,0,0,1,0],
-                 [1,0,0,0,0,0,0,0,1,0,0,0],
-                 [0,0,0,0,0,0,0,0,0,1,0,0],
-                 [0,1,0,0,0,0,1,0,0,0,0,0],
-                 [0,0,0,0,0,0,0,1,0,0,0,1],
-                 [0,0,0,0,0,0,0,0,0,0,1,0],
-                 [1,0,0,0,0,0,0,0,0,0,0,0]
+    # to test CFC
+    # [0,0,0,0,1,0,0,1,0,0,0,1],
+    #               [0,0,1,1,0,0,1,0,0,0,0,0],
+    #              [0,0,0,0,0,1,0,0,0,0,0,0],
+    #              [0,1,0,1,0,0,0,0,0,0,0,0],
+    #              [0,0,0,0,0,0,0,1,0,0,0,0],
+    #              [0,0,1,0,0,0,0,0,0,0,1,0],
+    #              [1,0,0,0,0,0,0,0,1,0,0,0],
+    #              [0,0,0,0,0,0,0,0,0,1,0,0],
+    #              [0,1,0,0,0,0,1,0,0,0,0,0],
+    #              [0,0,0,0,0,0,0,1,0,0,0,1],
+    #              [0,0,0,0,0,0,0,0,0,0,1,0],
+    #              [1,0,0,0,0,0,0,0,0,0,0,0]
     
     
     # to test non circuit + non arbo
@@ -348,6 +359,12 @@ matrice = [
     # [0,0,0,1,0,1],
     # [1,0,0,0,0,0]
 
+    #to test arborescence
+    [0, 1, 1, 0, 0],
+[0, 0, 0, 1, 1],
+[0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0]
 
 
 ]
